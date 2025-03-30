@@ -1,0 +1,95 @@
+"Debes leer "tiendalibros.sql". Necesito que implementes una aplicación para administrar una tienda de libros usando Flask y FastAPI, con las siguientes especificaciones:
+Requisitos Funcionales
+
+La aplicación debe gestionar un catálogo de libros, permitiendo abastecer la tienda con ejemplares y vender libros.
+El sistema debe mantener un registro del dinero en caja, iniciando con $1,000,000.
+Cada libro debe tener: ISBN (único), título, precio de compra, precio de venta y cantidad actual de ejemplares.
+Se deben registrar todas las transacciones (ventas y abastecimientos) con: tipo, fecha, cantidad y detalles.
+El abastecimiento aumenta el stock y registra transacción.
+La venta disminuye el stock (solo si hay ejemplares suficientes) y registra transacción.
+
+Funcionalidades requeridas
+
+Registrar/eliminar libros del catálogo
+Buscar libros por título e ISBN
+Abastecer ejemplares de libros
+Vender ejemplares de libros
+Calcular cantidad de transacciones de abastecimiento por libro
+Buscar libro más/menos costoso
+Buscar libro más vendido
+Interfaces para todas las operaciones
+API documentada con FastAPI
+
+Especificaciones Técnicas
+
+Desarrollar en Windows 11
+Usar Flask para el backend y la interfaz web
+Documentar la API con FastAPI
+Proteger rutas mediante autenticación básica (usuarios: juan/2025, maria/2025)
+Usar SQLite para la base de datos
+Usar Bootstrap para la interfaz de usuario
+
+Estructura del Proyecto
+Generar el proyecto en C:\Temp\Ejemplo4 con:
+
+app.py: Aplicación Flask principal
+api.py: API con FastAPI
+init_db.py: Inicialización de la base de datos
+models.py: Modelos de datos
+routes.py: Rutas de la aplicación
+templates/: Plantillas HTML
+static/: Archivos estáticos
+instance/: Directorio para la base de datos
+setup.ps1: Script de configuración
+
+Requerimientos específicos
+
+Asegurar que la estructura de la base de datos soporte:
+
+Relación entre libros y transacciones
+Cálculo correcto de stock
+Actualización automática de la caja
+
+
+Corregir problemas conocidos:
+
+Crear directorios necesarios antes de usar la base de datos
+Instalar todas las dependencias (incluir flask-sqlalchemy)
+Usar puertos dinámicos para evitar conflictos
+Manejar correctamente las relaciones en SQLAlchemy
+Validar stock antes de vender
+Implementar JavaScript funcional para la interfaz
+
+
+Implementar un script de configuración (setup.ps1) que:
+
+Cree todos los directorios necesarios
+Configure un entorno virtual
+Instale todas las dependencias
+Inicialice la base de datos
+Maneje posibles errores de permisos en PowerShell
+
+
+
+Dependencies (requirements.txt)
+Copiarflask==2.3.3
+flask-sqlalchemy==3.1.1
+fastapi==0.103.1
+uvicorn==0.23.2
+python-multipart==0.0.6
+jinja2==3.1.2
+click==8.1.7
+werkzeug==2.3.7
+Instrucciones de ejecución
+Incluir un archivo run.py que:
+
+Verifique y cree el directorio instance si no existe
+Inicialice la base de datos
+Inicie la API FastAPI en un puerto disponible (verificar si está en uso)
+Inicie la aplicación Flask
+
+Por favor, genera un proyecto completo que implemente todas estas funcionalidades, con manejo adecuado de errores, validaciones y una experiencia de usuario intuitiva. Asegúrate que el sistema de transacciones funcione correctamente, permitiendo seleccionar libros, cantidades y calculando totales automáticamente.""
+
+Necesitamos que el proyecto corrra correctamente en render como aplicación web. El proyecto debe trabajar con sqlite, no lo pases a postgrsql porque ha generado errores en el deploy. Realiza los ajustes en forma automática explicando paso a paso las modificaciones realizadas.
+
+gunicorn app:app
