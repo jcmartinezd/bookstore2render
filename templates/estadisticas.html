@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}Estadísticas - Tienda de Libros{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Libro Más Costoso</h5>
+            </div>
+            <div class="card-body">
+                {% if libro_mas_caro %}
+                    <h6 class="card-title">{{ libro_mas_caro.titulo }}</h6>
+                    <p class="card-text">
+                        <strong>ISBN:</strong> {{ libro_mas_caro.ISBN }}<br>
+                        <strong>Precio:</strong> ${{ "%.2f"|format(libro_mas_caro.precio_venta) }}<br>
+                        <strong>Stock:</strong> {{ libro_mas_caro.cantidad_actual }}
+                    </p>
+                {% else %}
+                    <p class="card-text">No hay libros en el catálogo</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Libro Menos Costoso</h5>
+            </div>
+            <div class="card-body">
+                {% if libro_mas_barato %}
+                    <h6 class="card-title">{{ libro_mas_barato.titulo }}</h6>
+                    <p class="card-text">
+                        <strong>ISBN:</strong> {{ libro_mas_barato.ISBN }}<br>
+                        <strong>Precio:</strong> ${{ "%.2f"|format(libro_mas_barato.precio_venta) }}<br>
+                        <strong>Stock:</strong> {{ libro_mas_barato.cantidad_actual }}
+                    </p>
+                {% else %}
+                    <p class="card-text">No hay libros en el catálogo</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Libro Más Vendido</h5>
+            </div>
+            <div class="card-body">
+                {% if mas_vendido %}
+                    <h6 class="card-title">{{ mas_vendido[0].titulo }}</h6>
+                    <p class="card-text">
+                        <strong>ISBN:</strong> {{ mas_vendido[0].ISBN }}<br>
+                        <strong>Total Vendidos:</strong> {{ mas_vendido[1] }}<br>
+                        <strong>Stock Actual:</strong> {{ mas_vendido[0].cantidad_actual }}
+                    </p>
+                {% else %}
+                    <p class="card-text">No hay ventas registradas</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Resumen de Inventario</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ISBN</th>
+                                <th>Título</th>
+                                <th>Precio Compra</th>
+                                <th>Precio Venta</th>
+                                <th>Stock</th>
+                                <th>Valor Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for libro in libros %}
+                            <tr>
+                                <td>{{ libro.ISBN }}</td>
+                                <td>{{ libro.titulo }}</td>
+                                <td>${{ "%.2f"|format(libro.precio_compra) }}</td>
+                                <td>${{ "%.2f"|format(libro.precio_venta) }}</td>
+                                <td>{{ libro.cantidad_actual }}</td>
+                                <td>${{ "%.2f"|format(libro.precio_compra * libro.cantidad_actual) }}</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="6" class="text-center">No hay libros en el catálogo</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

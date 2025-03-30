@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Nueva Transacción - Tienda de Libros{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Nueva Transacción</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" id="transaccionForm">
+                    <div class="mb-3">
+                        <label for="isbn" class="form-label">Libro</label>
+                        <select class="form-select" id="isbn" name="isbn" required>
+                            <option value="">Seleccione un libro</option>
+                            {% for libro in libros %}
+                            <option value="{{ libro.ISBN }}" 
+                                    data-precio-compra="{{ libro.precio_compra }}"
+                                    data-precio-venta="{{ libro.precio_venta }}"
+                                    data-stock="{{ libro.cantidad_actual }}">
+                                {{ libro.titulo }} (ISBN: {{ libro.ISBN }})
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tipo" class="form-label">Tipo de Transacción</label>
+                        <select class="form-select" id="tipo" name="tipo" required>
+                            <option value="">Seleccione el tipo</option>
+                            {% for tipo in tipos %}
+                            <option value="{{ tipo.id_tipo }}">{{ tipo.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cantidad" class="form-label">Cantidad</label>
+                        <input type="number" class="form-control" id="cantidad" name="cantidad" 
+                               required min="1">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Detalles</label>
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <p class="mb-1">Stock actual: <span id="stockActual">-</span></p>
+                                <p class="mb-1">Precio de compra: $<span id="precioCompra">-</span></p>
+                                <p class="mb-1">Precio de venta: $<span id="precioVenta">-</span></p>
+                                <p class="mb-1">Total: $<span id="total">-</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Realizar Transacción</button>
+                        <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const isbnSelect = document.getElementById('isbn');
+    const tipoSelect = document.getElementById('tipo');
+    const cantidadInput = document.getElementById('cantidad');
+    const stockActual = document.getElementById('stockActual');
+    const precioCompra = document.getElementById('precioCompra');
+    const precioVenta = document.getElementById('precioVenta');
+    const total = document.getElementById('total');
+
+    function actualizarDetalles() {
+        const option = isbnSelect.options[isbnSelect.selectedIndex];
+        if (option.value) {
+            stockActual.textContent = option.dataset.stock;
+            precioCompra.textContent = parseFloat(option.dataset.precioCompra).toFixed(2);
+            precioVenta.textContent = parseFloat(option.dataset.precioVenta).toFixed(2);
+            
+            const precio = tipoSelect.value === '1' ? 
+                parseFloat(option.dataset.precioVenta) : 
+                parseFloat(option.dataset.precioCompra);
+            const cantidad = parseInt(cantidadInput.value) || 0;
+            total.textContent = (precio * cantidad).toFixed(2);
+        } else {
+            stockActual.textContent = '-';
+            precioCompra.textContent = '-';
+            precioVenta.textContent = '-';
+            total.textContent = '-';
+        }
+    }
+
+    isbnSelect.addEventListener('change', actualizarDetalles);
+    tipoSelect.addEventListener('change', actualizarDetalles);
+    cantidadInput.addEventListener('input', actualizarDetalles);
+
+    document.getElementById('transaccionForm').addEventListener('submit', function(e) {
+        const option = isbnSelect.options[isbnSelect.selectedIndex];
+        const stock = parseInt(option.dataset.stock);
+        const cantidad = parseInt(cantidadInput.value);
+        const tipo = parseInt(tipoSelect.value);
+
+        if (tipo === 1 && cantidad > stock) {
+            e.preventDefault();
+            alert('No hay suficientes ejemplares en stock');
+        }
+    });
+});
+</script>
+{% endblock %} 

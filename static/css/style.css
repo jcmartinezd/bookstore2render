@@ -1,0 +1,117 @@
+/* Estilos generales */
+body {
+    background-color: #f8f9fa;
+}
+
+/* Estilos de la barra de navegación */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+/* Estilos de las tarjetas */
+.card {
+    box-shadow: 0 2px 4px rgba(0,0,0,.05);
+    border: none;
+    margin-bottom: 1rem;
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+/* Estilos de las tablas */
+.table th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* Estilos de los botones */
+.btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #bb2d3b;
+    border-color: #b02a37;
+}
+
+/* Estilos de los formularios */
+.form-control:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+}
+
+.form-select:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+}
+
+/* Estilos de las alertas */
+.alert {
+    border: none;
+    border-radius: 0.25rem;
+}
+
+/* Estilos para el saldo en caja */
+.display-4 {
+    color: #198754;
+    font-weight: bold;
+}
+
+/* Estilos para los detalles de transacción */
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+/* Estilos para los precios */
+.text-success {
+    color: #198754 !important;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}
+
+/* Estilos para los iconos */
+.nav-link i {
+    margin-right: 0.5rem;
+}
+
+/* Estilos para las estadísticas */
+.card-title {
+    color: #0d6efd;
+    font-weight: bold;
+}
+
+/* Estilos para la tabla de inventario */
+.table-responsive {
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,.05);
+}
+
+/* Estilos para los mensajes flash */
+.alert-info {
+    background-color: #cff4fc;
+    border-color: #b6effb;
+    color: #055160;
+} 

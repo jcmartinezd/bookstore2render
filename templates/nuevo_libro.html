@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Nuevo Libro - Tienda de Libros{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Agregar Nuevo Libro</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="isbn" class="form-label">ISBN</label>
+                        <input type="text" class="form-control" id="isbn" name="isbn" required 
+                               pattern="[0-9]{13}" title="El ISBN debe tener 13 dígitos">
+                        <div class="form-text">Ingrese el ISBN de 13 dígitos del libro.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="titulo" class="form-label">Título</label>
+                        <input type="text" class="form-control" id="titulo" name="titulo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="precio_compra" class="form-label">Precio de Compra</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control" id="precio_compra" name="precio_compra" 
+                                   required min="0" step="0.01">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="precio_venta" class="form-label">Precio de Venta</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control" id="precio_venta" name="precio_venta" 
+                                   required min="0" step="0.01">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cantidad" class="form-label">Cantidad Inicial</label>
+                        <input type="number" class="form-control" id="cantidad" name="cantidad" 
+                               required min="0">
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Agregar Libro</button>
+                        <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const precioCompra = document.getElementById('precio_compra');
+    const precioVenta = document.getElementById('precio_venta');
+
+    precioVenta.addEventListener('input', function() {
+        if (parseFloat(precioVenta.value) < parseFloat(precioCompra.value)) {
+            precioVenta.setCustomValidity('El precio de venta debe ser mayor o igual al precio de compra');
+        } else {
+            precioVenta.setCustomValidity('');
+        }
+    });
+});
+</script>
+{% endblock %} 

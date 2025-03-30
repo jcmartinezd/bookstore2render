@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - Tienda de Libros{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Saldo Actual en Caja</h5>
+                <p class="card-text display-4">${{ "%.2f"|format(saldo_actual.saldo_actual) }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Catálogo de Libros</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ISBN</th>
+                                <th>Título</th>
+                                <th>Precio Compra</th>
+                                <th>Precio Venta</th>
+                                <th>Stock</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for libro in libros %}
+                            <tr>
+                                <td>{{ libro.ISBN }}</td>
+                                <td>{{ libro.titulo }}</td>
+                                <td>${{ "%.2f"|format(libro.precio_compra) }}</td>
+                                <td>${{ "%.2f"|format(libro.precio_venta) }}</td>
+                                <td>{{ libro.cantidad_actual }}</td>
+                                <td>
+                                    <a href="{{ url_for('eliminar_libro', isbn=libro.ISBN) }}" 
+                                       class="btn btn-danger btn-sm"
+                                       onclick="return confirm('¿Está seguro de eliminar este libro?')">
+                                        Eliminar
+                                    </a>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="6" class="text-center">No hay libros en el catálogo</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
