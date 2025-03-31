@@ -93,3 +93,5 @@ Por favor, genera un proyecto completo que implemente todas estas funcionalidade
 Necesitamos que el proyecto corrra correctamente en render como aplicación web. El proyecto debe trabajar con sqlite, no lo pases a postgrsql porque ha generado errores en el deploy. Realiza los ajustes en forma automática explicando paso a paso las modificaciones realizadas.
 
 gunicorn app:app
+
+2025-03-30
